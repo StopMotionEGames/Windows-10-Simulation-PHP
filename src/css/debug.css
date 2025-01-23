@@ -1,0 +1,49 @@
+div.debug {
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+
+  pre {
+    padding: 16px;
+    background-color: azure;
+    color: black;
+    top: 50%;
+    left: 50%;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    &:hover{
+      background-color: #f0f0f06e;
+    }
+  }
+}
+div.php-error-message{
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 21;
+  background-color: #ffffffe0;
+
+  /* pre {
+    padding: 16px;
+    background-color: #ff0000;
+    color: white;
+    top: 50%;
+    left: 50%;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    &:hover{
+      background-color: #ff0000;
+    }
+  } */
+}

@@ -1,0 +1,151 @@
+:root {
+  --taskbar-height: 40px;
+  --taskbar-button-width: 48px
+}
+
+@import url(../filters/grainy.svg);
+@import url(themeColor.css);
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: #000;
+  background: no-repeat center center / cover;
+}
+
+.taskbar {
+  position: relative;
+  align-self: end;
+  width: 100%;
+  height: var(--taskbar-height);
+  background-color: var(--desktop-taskbar-color-transparent);
+  display: flex;
+  justify-content: space-between;
+
+  .left {
+    display: flex;
+    width: fit-content;
+    /* background-color: #0000e4; */
+    z-index: 1;
+
+    .start-button {
+      width: var(--taskbar-button-width);
+      height: var(--taskbar-height);
+      background-image: url(../images/wsl.svg);
+      background-size: 20px;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-right: 2px;
+    }
+
+    .icons {
+      height: var(--taskbar-height);
+      display: flex;
+      width: fit-content;
+
+      .taskbar-app {
+        position: relative;
+        width: var(--taskbar-button-width);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          position: relative;
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+
+#strtactbtn:hover,
+.taskbar-app:hover {
+  background-color: #ffffff10;
+}
+
+#strtactbtn:active,
+.taskbar-app:active {
+  background-color: #ffffff0c;
+}
+
+.start-button.focus {
+  background-color: #ffffff3d;
+
+  &:hover {
+    background-color: #ffffff3d !important;
+  }
+}
+
+.start-menu.unactived {
+  transform: translateY(250px);
+  background-color: #20202000;
+  pointer-events: none;
+  visibility: hidden;
+  transition: .4s cubic-bezier(0, 0.65, 0.15, 0.85);
+
+  .blur {
+    backdrop-filter: none;
+  }
+}
+
+.start-menu:focus {
+  outline: none;
+}
+
+.start-menu.actived {
+  transform: none;
+  background-color: var(--desktop-startmenu-color-transparent);
+  pointer-events: all;
+  visibility: visible;
+  transition: .35s cubic-bezier(0, 0.65, 0.15, 0.85);
+}
+
+.start-menu {
+  position: fixed;
+  height: 640px;
+  width: 560px;
+  bottom: var(--taskbar-height);
+  left: 0;
+  background-color: var(--desktop-startmenu-color-transparent);
+  display: flex;
+
+  .actions-buttons {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    width: var(--taskbar-startmenu-buttom-width);
+    height: 100%;
+
+    #strtactbtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: var(--taskbar-button-width);
+      height: var(--taskbar-height);
+    }
+  }
+}
+
+.blur,
+.grain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.blur {
+  backdrop-filter: blur(75px);
+}
+
+.grain {
+  backdrop-filter: url(#grainy) opacity(0.035);
+}
