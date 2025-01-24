@@ -1,7 +1,3 @@
-/**
- * Abre uma URL no navegador.
- * @param {string} url - O caminho da URL a ser aberta.
- */
 function openURL(url, target) { open(url, target) }
 let inputElement = document.querySelector("input[type='search']")
 let listElement = document.querySelector(".buttons")

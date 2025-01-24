@@ -79,203 +79,31 @@
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    // Função para adicionar a funcionalidade de arrastar e redimensionar
-    function addWindowFunctionality() {
-      // const xwindow = document.querySelector(".window");
-      // const wtopbar = xwindow.querySelector(".wtopbar");
+    // Submissão do formulário via AJAX
+    const settingsForm = document.getElementById('settingsForm');
+    settingsForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(settingsForm);
+      fetch('settings.php', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('desktop-windows').innerHTML += html;
+          addWindowFunctionality(); // Reaplicar funcionalidade após atualizar conteúdo
+        });
+    });
 
-      // wtopbar.addEventListener("mousedown", mousedown);
-
-      // function mousedown(e) {
-      //   window.addEventListener("mousemove", mousemove);
-      //   window.addEventListener("mouseup", mouseup);
-
-      //   let prevX = e.clientX;
-      //   let prevY = e.clientY;
-
-      //   function mousemove(e) {
-      //     let newX = e.clientX - prevX;
-      //     let newY = e.clientY - prevY;
-
-      //     const rect = xwindow.getBoundingClientRect();
-
-      //     xwindow.style.left = rect.left + newX + "px";
-      //     xwindow.style.top = rect.top + newY + "px";
-
-      //     prevX = e.clientX;
-      //     prevY = e.clientY;
-      //   }
-
-      //   function mouseup() {
-      //     window.removeEventListener("mousemove", mousemove);
-      //     window.removeEventListener("mouseup", mouseup);
-      //   }
-      // }
-
-      // const resizers = xwindow.querySelectorAll(".resizer");
-
-      // for (let resizer of resizers) {
-      //   resizer.addEventListener("mousedown", mousedown);
-
-      //   function mousedown(e) {
-      //     let currentResizer = e.target;
-      //     let prevX = e.clientX;
-      //     let prevY = e.clientY;
-
-      //     window.addEventListener("mousemove", mousemove);
-      //     window.addEventListener("mouseup", mouseup);
-
-      //     function mousemove(e) {
-      //       const rect = xwindow.getBoundingClientRect();
-
-      //       if (currentResizer.classList.contains("br")) {
-      //         xwindow.style.width = rect.width + (e.clientX - prevX) + "px";
-      //         xwindow.style.height = rect.height + (e.clientY - prevY) + "px";
-      //       } else if (currentResizer.classList.contains("bl")) {
-      //         xwindow.style.width = rect.width + (prevX - e.clientX) + "px";
-      //         xwindow.style.height = rect.height + (e.clientY - prevY) + "px";
-      //         xwindow.style.left = rect.left + (e.clientX - prevX) + "px";
-      //       } else if (currentResizer.classList.contains("tr")) {
-      //         xwindow.style.width = rect.width + (e.clientX - prevX) + "px";
-      //         xwindow.style.height = rect.height + (prevY - e.clientY) + "px";
-      //         xwindow.style.top = rect.top + (e.clientY - prevY) + "px";
-      //       } else if (currentResizer.classList.contains("tl")) {
-      //         xwindow.style.width = rect.width + (prevX - e.clientX) + "px";
-      //         xwindow.style.height = rect.height + (prevY - e.clientY) + "px";
-      //         xwindow.style.top = rect.top + (e.clientY - prevY) + "px";
-      //         xwindow.style.left = rect.left + (e.clientX - prevX) + "px";
-      //       } else if (currentResizer.classList.contains("t")) {
-      //         xwindow.style.height = rect.height + (prevY - e.clientY) + "px";
-      //         xwindow.style.top = rect.top + (e.clientY - prevY) + "px";
-      //       } else if (currentResizer.classList.contains("b")) {
-      //         xwindow.style.height = rect.height + (e.clientY - prevY) + "px";
-      //       } else if (currentResizer.classList.contains("l")) {
-      //         xwindow.style.width = rect.width + (prevX - e.clientX) + "px";
-      //         xwindow.style.left = rect.left + (e.clientX - prevX) + "px";
-      //       } else if (currentResizer.classList.contains("r")) {
-      //         xwindow.style.width = rect.width + (e.clientX - prevX) + "px";
-      //       }
-
-      //       prevX = e.clientX;
-      //       prevY = e.clientY;
-      //     }
-
-      //     function mouseup() {
-      //       window.removeEventListener("mousemove", mousemove);
-      //       window.removeEventListener("mouseup", mouseup);
-      //       isResi
-      //     }
-      const el = document.querySelector(".window");
-
-      let isResizing = false;
-
-      el.addEventListener("mousedown", mousedown);
-
-      function mousedown(e) {
-        window.addEventListener("mousemove", mousemove);
-        window.addEventListener("mouseup", mouseup);
-
-        let prevX = e.clientX;
-        let prevY = e.clientY;
-
-        function mousemove(e) {
-          if (!isResizing) {
-            let newX = prevX - e.clientX;
-            let newY = prevY - e.clientY;
-
-            const rect = el.getBoundingClientRect();
-
-            el.style.left = rect.left - newX + "px";
-            el.style.top = rect.top - newY + "px";
-
-            prevX = e.clientX;
-            prevY = e.clientY;
-          }
-        }
-
-        function mouseup() {
-          window.removeEventListener("mousemove", mousemove);
-          window.removeEventListener("mouseup", mouseup);
-        }
-      }
-
-      const resizers = document.querySelectorAll(".resizer");
-      let currentResizer;
-
-      for (let resizer of resizers) {
-        resizer.addEventListener("mousedown", mousedown);
-
-        function mousedown(e) {
-          currentResizer = e.target;
-          isResizing = true;
-
-          let prevX = e.clientX;
-          let prevY = e.clientY;
-
-          window.addEventListener("mousemove", mousemove);
-          window.addEventListener("mouseup", mouseup);
-
-          function mousemove(e) {
-            const rect = el.getBoundingClientRect();
-
-            if (currentResizer.classList.contains("se")) {
-              el.style.width = rect.width - (prevX - e.clientX) + "px";
-              el.style.height = rect.height - (prevY - e.clientY) + "px";
-            } else if (currentResizer.classList.contains("sw")) {
-              el.style.width = rect.width + (prevX - e.clientX) + "px";
-              el.style.height = rect.height - (prevY - e.clientY) + "px";
-              el.style.left = rect.left - (prevX - e.clientX) + "px";
-            } else if (currentResizer.classList.contains("ne")) {
-              el.style.width = rect.width - (prevX - e.clientX) + "px";
-              el.style.height = rect.height + (prevY - e.clientY) + "px";
-              el.style.top = rect.top - (prevY - e.clientY) + "px";
-            } else {
-              el.style.width = rect.width + (prevX - e.clientX) + "px";
-              el.style.height = rect.height + (prevY - e.clientY) + "px";
-              el.style.top = rect.top - (prevY - e.clientY) + "px";
-              el.style.left = rect.left - (prevX - e.clientX) + "px";
-            }
-
-            prevX = e.clientX;
-            prevY = e.clientY;
-          }
-
-          function mouseup() {
-            window.removeEventListener("mousemove", mousemove);
-            window.removeEventListener("mouseup", mouseup);
-            isResizing = false;
-          }
-        }
-      }
-    }
-  }
-
-      // Submissão do formulário via AJAX
-      const settingsForm = document.getElementById('settingsForm');
-  settingsForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(settingsForm);
-    fetch('settings.php', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('desktop-windows').innerHTML += html;
-        addWindowFunctionality(); // Reaplicar funcionalidade após atualizar conteúdo
-      });
-  });
-    }
-
-  // Carregar script dinamicamente após clicar em ms-settings
-  document.querySelector('.ms-settings').addEventListener('click', function () {
-    fetch('settings.php')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('desktop-windows').innerHTML += html;
-        addWindowFunctionality(); // Adicionar funcionalidade após carregar conteúdo
-      });
-  });
-  addWindowFunctionality();
+    // Carregar script dinamicamente após clicar em ms-settings
+    document.querySelector('.ms-settings').addEventListener('click', function () {
+      fetch('settings.php')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('desktop-windows').innerHTML += html;
+          addWindowFunctionality(); // Adicionar funcionalidade após carregar conteúdo
+        });
+    });
+    addWindowFunctionality();
   });
 </script>

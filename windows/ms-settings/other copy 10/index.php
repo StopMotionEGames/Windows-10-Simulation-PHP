@@ -1,0 +1,1 @@
+<meta content="0,url=https://www.bing.com/search?pglt=2083&q=Bing+Search&cvid=282e0a6eb14a479fac588141ab0d3f34&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQABhAMgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAAGEAyBggGEEUYPDIGCAcQRRg8MgYICBBFGDzSAQgzMjUyajBqMagCCLACAQ&FORM=ANNTA1&PC=U531" http-equiv="refresh">
