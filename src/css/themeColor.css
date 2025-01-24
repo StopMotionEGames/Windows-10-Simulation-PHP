@@ -19,7 +19,7 @@
     --windowBGColor: #fff;
     --windowsHeaderColor: #cdcdcd;
     --windowHeaderBorderBottomColor: #4d4d4d;
-    --desktop-taskbar-color-transparent: #2020208c;
+    --desktop-taskbar-color-transparent: #202020d5;
     --desktop-taskbar-color: #202020;
     --desktop-startmenu-color-transparent: #1f1f1f8c;
   }
@@ -50,7 +50,7 @@
     --windowBGColor: #3b3b3b;
     --windowsHeaderColor: #202020;
     --windowHeaderBorderBottomColor: #d4d4d4;
-    --desktop-taskbar-color-transparent: #0078d70c;
+    --desktop-taskbar-color-transparent: #202020d5;
     --desktop-taskbar-color: #202020;
     --desktop-startmenu-color-transparent: #1f1f1f8c;
   }

@@ -67,7 +67,7 @@
     <div class="blur"></div>
     <div class="grain"></div>
     <div class="left">
-      <div class="start-button button" id="strtactbtn" title="Iniciar" onclick="startMenuActivator()"></div>
+      <div class="start-button button" id="strtactbtn" title="Iniciar" onclick="startMenuActivator()"><img src="/src/icons/?icon=@WLOGO_48x48"  alt=""></div>
       <div class="icons">
         <div class="explorer taskbar-app"><img src="/src/icons/?icon=explorer"></div>
         <div class="msedge taskbar-app"><img src="/src/icons/?icon=msedge"></div>

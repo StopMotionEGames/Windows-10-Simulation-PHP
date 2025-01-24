@@ -3,7 +3,7 @@
   --taskbar-button-width: 48px
 }
 
-@import url(../filters/grainy.svg);
+@import url(/src/filters/grainy.svg);
 @import url(themeColor.css);
 
 body {
@@ -26,6 +26,7 @@ body {
   background-color: var(--desktop-taskbar-color-transparent);
   display: flex;
   justify-content: space-between;
+  z-index: 500000;
 
   .left {
     display: flex;
@@ -36,11 +37,15 @@ body {
     .start-button {
       width: var(--taskbar-button-width);
       height: var(--taskbar-height);
-      background-image: url(../images/wsl.svg);
-      background-size: 20px;
-      background-repeat: no-repeat;
-      background-position: center;
       margin-right: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        position: relative;
+        width: 18px;
+      }
     }
 
     .icons {
@@ -143,7 +148,7 @@ body {
 }
 
 .blur {
-  backdrop-filter: blur(75px);
+  backdrop-filter: blur(15px);
 }
 
 .grain {
