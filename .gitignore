@@ -4,3 +4,4 @@ testmysql.php
 test_sockets.php
 wampthemes/*
 wamplangues/*
+.vscode/*
