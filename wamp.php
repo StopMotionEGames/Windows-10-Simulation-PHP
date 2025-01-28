@@ -1,13 +1,4 @@
 <?php
-// 3.3.0 - Replace ${var} by {$var}
-
-// Page created by Shepard [Fabian Pijcke] <Shepard8@laposte.net>
-// Arno Esterhuizen <arno.esterhuizen@gmail.com>
-// and Romain Bourdon <rromain@romainbourdon.com>
-// and Hervé Leclerc <herve.leclerc@alterway.fr>
-// Icons by Mark James <http://www.famfamfam.com/lab/icons/silk/>
-// Version 2.5 -> 3.3.2 by Dominique Ottello alias Otomatic
-
 $server_dir = "../";
 
 require $server_dir.'scripts/config.inc.php';
