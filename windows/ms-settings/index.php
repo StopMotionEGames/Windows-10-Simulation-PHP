@@ -3,16 +3,12 @@
 require '../../vendor/autoload.php';
 
 use React\EventLoop\Factory;
-use React\ChildProcess\Process;
 use React\Promise\Promise;
 
 $loop = Factory::create();
 $folder = '.';
 $subfolders = glob("$folder/*", GLOB_ONLYDIR);
 $buttons = '';
-
-$buttons = '';
-
 
 foreach ($subfolders as $subfolder) {
   $indexPath = "$subfolder/index.php";
@@ -44,8 +40,6 @@ foreach ($subfolders as $subfolder) {
 
 $loop->run();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -66,7 +60,7 @@ $loop->run();
   <body>
     <div class="content">
       <div class="main-content full">
-        <div class="header full">
+        <div class="header full home-page">
           <progressbarI>
             <div class="two"></div>
             <div class="two"></div>
@@ -76,12 +70,18 @@ $loop->run();
           </progressbarI>
           <div class="header-main">
             <div class="header-content">
-              <tabtitle>
-                <div class="icon">
-                  <span id="Home" class="smallHome" onclick="openURL('/', '_Self')"></span>
+              <div class="user-info">
+                <div class="user-icon">
                 </div>
-                Beta Elements
-              </tabTitle>
+                <div class="user">
+                  <span id="name"><?php echo "ADM2" ?></span>
+                  <span id="account-type">Conta Local</span>
+                  <span id="link"><a href="#">Entrar</a></span>
+                </div>
+              </div>
+              <div class="short-cuts">
+
+              </div>
             </div>
           </div>
         </div>

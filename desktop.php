@@ -22,26 +22,7 @@
           </div>
         </div>
         <div class="wcontent">
-          <!-- <div class="section">
-            <div class="sectiontitle">Imagens com muitos bytes</div>
-            <p>Essa janela contem imagens pesadas, para atrasar o carregamento do usuário.
-              <li>
-                Nota: Esse carregamento demorado é proposital, para simular o carregamento do "Sistema Operacional,
-                Windows".
-                <?php
-                // echo php_uname();
-                ?>
-              </li>
-            </p>
-            <div class="images">
-                <img src="src/images/Nasa-31-9MB.jpg" />
-                <img src="src/images/Nasa-32MB.jpg" />
-                <img src="src/images/Nasa-50MB.png" />
-                <img src="src/images/Nasa-128MB.png" />
-            </div>
-          </div> -->
-          <iframe src="/windows/ms-settings" frameborder="0" width="100%" height="100%"
-            sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation allow-top-navigation-by-user-activation"></iframe>
+          <iframe src="/windows/ms-settings" frameborder="0" width="100%" height="100%"></iframe>
         </div>
       </div>
     </div>
@@ -67,7 +48,12 @@
     <div class="blur"></div>
     <div class="grain"></div>
     <div class="left">
-      <div class="start-button button" id="strtactbtn" title="Iniciar" onclick="startMenuActivator()"><img src="/src/icons/?icon=@WLOGO_48x48"  alt=""></div>
+      <div class="start-button button" id="strtactbtn" title="Iniciar" onclick="startMenuActivator()"><svg
+          xmlns="https://www.w3.org/TR/SVG2" viewBox="0 0 48 48">
+          <path fill="#0a78d4"
+            d="M20 23H1V7.6L20 5v18Zm27 0H22V4.6L47 1v22Zm-27 2H1v16l1sss9 2V25Zm2 0h25v21.5l-25-3V25Z" />
+        </svg>
+      </div>
       <div class="icons">
         <div class="explorer taskbar-app"><img src="/src/icons/?icon=explorer"></div>
         <div class="msedge taskbar-app"><img src="/src/icons/?icon=msedge"></div>

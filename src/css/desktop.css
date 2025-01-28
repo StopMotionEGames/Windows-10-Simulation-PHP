@@ -26,7 +26,7 @@ body {
   background-color: var(--desktop-taskbar-color-transparent);
   display: flex;
   justify-content: space-between;
-  z-index: 500000;
+  z-index: 50000;
 
   .left {
     display: flex;
@@ -42,9 +42,23 @@ body {
       align-items: center;
       justify-content: center;
 
-      img {
+      svg {
         position: relative;
-        width: 18px;
+        width: 16.7px;
+
+        /* Estado normal */
+        path {
+          fill: var(--txtc);
+        }
+      }
+
+      /* Estado hover */
+      &:hover svg path {
+        fill: #0078d7;
+      }
+
+      &:active svg path {
+        fill: #0078d4;
       }
     }
 

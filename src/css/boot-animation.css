@@ -1,14 +1,14 @@
 @font-face {
   font-family: sb;
-  src: url(../fonts/sb.woff2) format('woff2');
+  src: url(/src/fonts/sb.woff2) format('woff2');
 }
 
 #loadBody {
   color: #fff;
-  background: #00000080;
+  background: #000;
   overflow: hidden;
   font-family: Segoe UI;
-  z-index: 100;
+  z-index: 800000;
   position: fixed;
   top: 0;
   left: 0;

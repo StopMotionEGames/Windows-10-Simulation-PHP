@@ -119,13 +119,15 @@
 }
 
 .wtopbar {
+  position: absolute;
   width: 100%;
   height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--windowHeaderBorderBottomColor);
+  /* border-bottom: 1px solid var(--windowHeaderBorderBottomColor); */
   background: var(--windowHeaderColor) !important;
+  z-index: 1;
 }
 
 .wclose:hover {

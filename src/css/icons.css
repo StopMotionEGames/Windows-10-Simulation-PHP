@@ -1,8 +1,8 @@
-@import url(./themeColor.css);
+@import url(themeColor.css);
 
 @font-face {
   font-family: SM2A;
-  src: url(../fonts/SEGMDL2.woff2);
+  src: url(/src/fonts/SEGMDL2.woff2);
 }
 
 .ctxt-menu::before {
