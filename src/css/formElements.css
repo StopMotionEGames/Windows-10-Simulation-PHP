@@ -51,7 +51,7 @@
   width: fit-content;
   border: 2.4px solid #999;
   display: inline-block;
-  height: 28px;
+  height: 30px;
   margin-block: 4px;
   vertical-align: middle;
 }
@@ -95,8 +95,9 @@ input[type="search"]:focus {
   display: flex !important;
 
   button {
-    height: 28px;
-    width: 28px;
+    position:relative;
+    height: 30px;
+    width: 30px;
     background-color: #ffffff4d;
     border: none;
   }
