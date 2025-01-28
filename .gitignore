@@ -1,1 +1,6 @@
-/wamp.php
+wamp.php
+add_vhost.php
+testmysql.php
+test_sockets.php
+wampthemes/*
+wamplangues/*
