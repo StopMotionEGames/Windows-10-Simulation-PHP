@@ -85,7 +85,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
       crossorigin="anonymous">
     <link rel="preload" as="image" href="src/images/w10-bootLogo.svg" type="image/svg+xml">
     <link rel="preload" as="image" href="src/images/w11-bootLogo.svg" type="image/svg+xml">
-    <link rel="preload" as="style" href="src/css/boot-animation.css" type="text/css" fetchpriority="high" onload="this.rel='stylesheet'">
+    <link rel="preload" as="style" href="src/css/boot-animation.css" type="text/css" fetchpriority="high"
+      onload="this.rel='stylesheet'">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login e Desktop</title>
@@ -98,9 +99,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
       function fontLoaded() {
         return document.fonts.load('1em sb');
       }
-
-      let s, e, c, t, h, b = true;
-      let i;
+      let s, e, c, t, h, b = true, i;
       // Função para detectar o sistema operacional
       function detectOS() {
         navigator.userAgentData.getHighEntropyValues(["platformVersion"])
@@ -123,11 +122,22 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 c = s;
               }
               else {
-                //   Early Windows
+                // Early Windows
+                s = 0xE052;
+                e = 0xE0C6;
+                t = 500;
+                c = s;
               }
             }
+            else if (navigator.userAgentData.platform === "Android") {
+              // Android
+              s = 0xE052;
+              e = 0xE0C6;
+              t = 500;
+              c = s;
+            }
             else {
-              // Not Windows
+              // Not Windows and not Android
               s = 0xE052;
               e = 0xE0C6;
               t = 500;
@@ -141,6 +151,40 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         h = document.getElementById("loadAnm");
         u();
       }
+      let touchCount = 0;
+      let touchTimeout;
+
+      function goFullscreen() {
+        const htmlElement = document.documentElement; // Seleciona a tag <html>
+        if (!document.fullscreenElement) {
+          if (htmlElement.requestFullscreen) {
+            htmlElement.requestFullscreen();
+          } else if (htmlElement.mozRequestFullScreen) { // Firefox
+            htmlElement.mozRequestFullScreen();
+          } else if (htmlElement.webkitRequestFullscreen) { // Chrome, Safari e Opera
+            htmlElement.webkitRequestFullscreen();
+          } else if (htmlElement.msRequestFullscreen) { // IE/Edge
+            htmlElement.msRequestFullscreen();
+          }
+        }
+      }
+
+      function resetTouchCount() {
+        touchCount = 0;
+      }
+
+      document.addEventListener('touchstart', () => {
+        touchCount++;
+        clearTimeout(touchTimeout);
+        touchTimeout = setTimeout(resetTouchCount, 500); // Reseta o contador após 500ms de inatividade
+
+        if (touchCount === 5 && !document.fullscreenElement) {
+          if (confirm("Deseja entrar em tela cheia?")) {
+            goFullscreen();
+          }
+          resetTouchCount();
+        }
+      });
 
       function u() {
         if (c > e) {
