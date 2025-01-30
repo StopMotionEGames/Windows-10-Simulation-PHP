@@ -7,12 +7,13 @@ $output = shell_exec("bash $scriptPath 2>&1");
 
 // Processar a saída do script shell
 $output_lines = explode("\n", trim($output));
-$status = $output_lines[0];
-unset($output_lines[0]); // Remove o status da primeira linha
+$status = array_shift($output_lines); // Pega a primeira linha como status
 
 if ($status === "update") {
     echo json_encode(["message" => "Algumas atualizações foram encontradas.", "status" => "update", "files" => $output_lines]);
-} else {
+} elseif ($status === "no_update") {
     echo json_encode(["message" => "Nenhuma atualização encontrada.", "status" => "no_update"]);
+} else {
+    echo json_encode(["message" => "Erro: $status", "status" => "error"]);
 }
 ?>
