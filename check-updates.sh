@@ -4,6 +4,9 @@
 BRANCH="Canary"
 DEST_DIR="/var/www/html"
 
+# Definir variável de ambiente HOME
+export HOME="/var/www"
+
 # Navegar até o diretório do projeto
 cd $DEST_DIR
 
@@ -14,19 +17,19 @@ if [ ! -d ".git" ]; then
 fi
 
 # Buscar atualizações do repositório remoto
-echo "Fetching updates from remote..."
+echo "Fetching updates from remote..." | tee -a /var/www/html/check-updates.log
 FETCH_OUTPUT=$(git fetch origin $BRANCH 2>&1)
-echo "Fetch Output:\n$FETCH_OUTPUT\n"
+echo "Fetch Output: $FETCH_OUTPUT" | tee -a /var/www/html/check-updates.log
 
 # Verificar diferenças entre o branch local e o branch remoto
-echo "Checking for differences..."
+echo "Checking for differences..." | tee -a /var/www/html/check-updates.log
 DIFF_OUTPUT=$(git diff origin/$BRANCH --name-only 2>&1)
-echo "Diff Output:\n$DIFF_OUTPUT\n"
+echo "Diff Output: $DIFF_OUTPUT" | tee -a /var/www/html/check-updates.log
 
 # Verificar se há diferenças
 if [ -n "$DIFF_OUTPUT" ]; then
-    echo "update"
-    echo "$DIFF_OUTPUT"
+    echo "update" | tee -a /var/www/html/check-updates.log
+    echo "$DIFF_OUTPUT" | tee -a /var/www/html/check-updates.log
 else
-    echo "no_update"
+    echo "no_update" | tee -a /var/www/html/check-updates.log
 fi
