@@ -16,7 +16,7 @@ $output_lines = explode("\n", trim($output));
 $status = array_shift($output_lines); // Pega a primeira linha como status
 
 // Adicionar log de depuração
-file_put_contents('/home/smeg/docker-compose/html/check-updates-php.log', "Output:\n$output\n", FILE_APPEND);
+file_put_contents('/var/www/html/check-updates-php.log', "Output:\n$output\n", FILE_APPEND);
 
 if ($status === "update") {
     echo json_encode(["message" => "Algumas atualizações foram encontradas.", "status" => "update", "files" => $output_lines]);
