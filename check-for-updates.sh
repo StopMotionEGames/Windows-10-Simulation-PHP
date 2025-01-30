@@ -4,9 +4,6 @@
 BRANCH="Canary"
 DEST_DIR="/var/www/html"
 
-# Adicionar o diretório como seguro
-git config --global --add safe.directory "$DEST_DIR"
-
 # Navegar até o diretório do projeto
 cd $DEST_DIR
 
