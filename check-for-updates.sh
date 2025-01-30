@@ -14,10 +14,15 @@ if [ ! -d ".git" ]; then
 fi
 
 # Buscar atualizações do repositório remoto
+echo "Fetching updates from remote..."
 git fetch origin $BRANCH 2>&1
 
 # Verificar diferenças entre o branch local e o branch remoto
+echo "Checking for differences..."
 DIFF_OUTPUT=$(git diff origin/$BRANCH --name-only 2>&1)
+
+# Para depuração
+echo "Diff Output:\n$DIFF_OUTPUT\n"
 
 # Verificar se há diferenças
 if [ -n "$DIFF_OUTPUT" ]; then
