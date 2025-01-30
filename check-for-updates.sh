@@ -4,6 +4,9 @@
 BRANCH="Canary"
 DEST_DIR="/var/www/html"
 
+# Adicionar o diretório como seguro
+git config --global --add safe.directory "$DEST_DIR"
+
 # Navegar até o diretório do projeto
 cd $DEST_DIR
 
@@ -15,13 +18,12 @@ fi
 
 # Buscar atualizações do repositório remoto
 echo "Fetching updates from remote..."
-git fetch origin $BRANCH 2>&1
+FETCH_OUTPUT=$(git fetch origin $BRANCH 2>&1)
+echo "Fetch Output:\n$FETCH_OUTPUT\n"
 
 # Verificar diferenças entre o branch local e o branch remoto
 echo "Checking for differences..."
 DIFF_OUTPUT=$(git diff origin/$BRANCH --name-only 2>&1)
-
-# Para depuração
 echo "Diff Output:\n$DIFF_OUTPUT\n"
 
 # Verificar se há diferenças
