@@ -2,17 +2,6 @@
 session_start();
 require 'db.php';
 
-// ob_start();
-// set_error_handler('customErrorHandler');
-
-function customErrorHandler($errno, $errstr, $errfile, $errline)
-{
-  echo "<div class='error-message'>";
-  echo "<b>Error:</b> [$errno] $errstr - $errfile:$errline";
-  echo "</div>";
-  return true;
-}
-
 function authenticate($username, $password, $pin)
 {
   global $pdo;
