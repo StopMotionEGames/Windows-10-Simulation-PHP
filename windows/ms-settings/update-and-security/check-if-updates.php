@@ -36,4 +36,3 @@ if (is_resource($process)) {
         echo json_encode(["message" => "Erro: $status", "status" => "error"]);
     }
 }
-?>
