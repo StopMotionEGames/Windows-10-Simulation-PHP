@@ -1,5 +1,5 @@
 #!/bin/bash
-
+git config --global --add safe.directory /var/www/html
 # Defina variáveis
 BRANCH="Canary"
 DEST_DIR="/var/www/html"
