@@ -25,7 +25,8 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
     }
   }
 
-  if ($downloadUrl && isset($releaseData['zipball_url'])) {
+  // Se não houver asset específico, usa o zipball_url
+  if (!$downloadUrl && isset($releaseData['zipball_url'])) {
     $downloadUrl = $releaseData['zipball_url'];
   }
 
@@ -45,7 +46,7 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
     // Usar cURL para baixar o arquivo com autenticação
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $downloadUrl);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_USERAGENT, 'PHP');
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
