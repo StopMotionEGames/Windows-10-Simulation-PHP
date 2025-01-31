@@ -37,9 +37,9 @@ function checkForUpdates($currentVersion, $debug, &$logs)
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_USERAGENT, 'PHP');
   curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'Authorization: Bearer ' . $token,
+    "Authorization: Bearer $token",
     'Accept: application/vnd.github+json',
-    'X-GitHub-Api-Version: 2.23.28'
+    'X-GitHub-Api-Version: 2022-11-28'
   ));
   $response = curl_exec($ch);
   $curlError = curl_error($ch);
@@ -114,6 +114,11 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
     }
   }
 
+  // Se não houver asset específico, usa o zipball_url
+  if (!$downloadUrl && isset($releaseData['zipball_url'])) {
+    $downloadUrl = $releaseData['zipball_url'];
+  }
+
   if ($downloadUrl) {
     $downloadPath = "$tempDir/update.zip";
     file_put_contents($downloadPath, fopen($downloadUrl, 'r'));
@@ -123,7 +128,7 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
       $zip->extractTo($tempDir);
       $zip->close();
 
-      // Move files to the root directory
+      // Mover arquivos para o diretório raiz
       recursiveMove($tempDir, $root);
       $logs .= "Arquivos movidos para a raiz.\n";
     } else {

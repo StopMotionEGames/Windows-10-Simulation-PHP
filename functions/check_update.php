@@ -42,7 +42,7 @@ function checkForUpdates($currentVersion, $debug, &$logs)
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_USERAGENT, 'PHP');
   curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'Authorization: Bearer ' . $token,
+    "Authorization: Bearer $token",
     'Accept: application/vnd.github+json',
     'X-GitHub-Api-Version: 2022-11-28'
   ));
