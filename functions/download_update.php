@@ -14,6 +14,7 @@ $logs = '';
 
 function downloadAndUpdate($releaseData, $root, $debug, &$logs)
 {
+  $downloadDir = "$root/Windows/SoftwareDistribution/Download";
   $tempDir = "$root/Windows/SoftwareDistribution/Temp";
   $logs = '';
 
@@ -35,7 +36,7 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
   }
 
   if ($downloadUrl) {
-    $downloadPath = "$tempDir/update.zip";
+    $downloadPath = "$downloadDir/update.zip";
     $token = getenv('GITHUB_TOKEN');
     if (!$token) {
       $logs .= "Token de acesso indefinido no servidor\n";
@@ -66,16 +67,41 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
     }
 
     if ($httpCode == 200 && $data) {
+      // Garantir que o diretório de download existe
+      if (!is_dir($downloadDir)) {
+        mkdir($downloadDir, 0777, true);
+        $logs .= "Diretório de download criado: $downloadDir\n";
+      }
       file_put_contents($downloadPath, $data);
+      $logs .= "Arquivo baixado com sucesso para $downloadPath\n";
+
+      // Garantir que o diretório temporário existe
+      if (!is_dir($tempDir)) {
+        mkdir($tempDir, 0777, true);
+        $logs .= "Diretório temporário criado: $tempDir\n";
+      }
 
       $zip = new ZipArchive;
       if ($zip->open($downloadPath) === TRUE) {
         $zip->extractTo($tempDir);
         $zip->close();
+        $logs .= "Arquivo extraído com sucesso para $tempDir\n";
 
         // Mover arquivos para o diretório raiz
         recursiveMove($tempDir, $root);
         $logs .= "Arquivos movidos para a raiz.\n";
+
+        // Atualizar winver.json
+        $winverPath = "$root/Windows/System32/winver.json";
+        $winverData = [
+          'branch' => $releaseData['target_commitish'],
+          'version' => $releaseData['body'] ? explode("\r\n", $releaseData['body'])[0] : '',
+          'compilation' => $releaseData['body'] ? explode("\r\n", $releaseData['body'])[1] : '',
+          'update' => $releaseData['body'] ? explode("\r\n", $releaseData['body'])[2] : '',
+          'tag' => $releaseData['tag_name']
+        ];
+        file_put_contents($winverPath, json_encode($winverData, JSON_PRETTY_PRINT));
+        $logs .= "winver.json atualizado com sucesso.\n";
       } else {
         $logs .= "Falha ao abrir o arquivo zip.\n";
       }
