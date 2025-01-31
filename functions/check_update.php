@@ -30,12 +30,11 @@ function getCurrentVersion($root, $debug, &$logs)
 function checkForUpdates($currentVersion, $debug, &$logs)
 {
   $githubApiUrl = 'https://api.github.com/repos/StopMotionEGames/Windows-10-Simulation-PHP/releases';
-  $token = getenv("GITHUB_TOKEN");
-
-  if (!$token) {
-    $logs .= "Token do GitHub não encontrado nas variáveis de ambiente.\n";
-    return ['logs' => $logs];
-  }
+  $token = getenv('GITHUB_TOKEN');
+  if (!$token)
+    $logs .= "Token de acesso indefinido no servidor\n";
+  else
+    $logs .= "Token de acesso: $token\n";
 
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $githubApiUrl);

@@ -25,18 +25,47 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
     }
   }
 
-  // Se não houver asset específico, usa o zipball_url
-  if (!$downloadUrl && isset($releaseData['zipball_url'])) {
+  if ($downloadUrl && isset($releaseData['zipball_url'])) {
     $downloadUrl = $releaseData['zipball_url'];
+  }
+
+  if ($debug) {
+    $logs .= "URL de download: $downloadUrl\n";
   }
 
   if ($downloadUrl) {
     $downloadPath = "$tempDir/update.zip";
-    $file = fopen($downloadUrl, 'r');
+    $token = getenv('GITHUB_TOKEN');
+    if (!$token) {
+      $logs .= "Token de acesso indefinido no servidor\n";
+    } else {
+      $logs .= "Token de acesso: $token\n";
+    }
 
-    if ($file) {
-      file_put_contents($downloadPath, $file);
-      fclose($file);
+    // Usar cURL para baixar o arquivo com autenticação
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $downloadUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'PHP');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      "Authorization: Bearer $token",
+      'Accept: application/octet-stream',
+      'X-GitHub-Api-Version: 2022-11-28'
+    ));
+    curl_setopt($ch, CURLOPT_FAILONERROR, true); // Para capturar erros HTTP
+    $data = curl_exec($ch);
+    $curlError = curl_error($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($debug) {
+      $logs .= "HTTP Status Code: $httpCode\n";
+      $logs .= "cURL Error: $curlError\n";
+    }
+
+    if ($httpCode == 200 && $data) {
+      file_put_contents($downloadPath, $data);
 
       $zip = new ZipArchive;
       if ($zip->open($downloadPath) === TRUE) {
@@ -50,7 +79,7 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
         $logs .= "Falha ao abrir o arquivo zip.\n";
       }
     } else {
-      $logs .= "Falha ao abrir stream para $downloadUrl.\n";
+      $logs .= "Falha ao abrir stream para $downloadUrl. HTTP Status Code: $httpCode, Erro: $curlError\n";
     }
   } else {
     $logs .= "URL de download não encontrada.\n";
