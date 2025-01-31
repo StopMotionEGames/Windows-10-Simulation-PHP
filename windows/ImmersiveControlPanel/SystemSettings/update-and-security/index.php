@@ -41,33 +41,45 @@
       <button id="check-update-button">Verificar se há atualizações</button>
     </div>
     <div id="message"></div>
-    <div class="debug">
-      <pre id="debug-log" tabindex="-1"></pre>
-    </div>
     <script>
-      document.getElementById('check-update-button').addEventListener('click', () => {
-        fetch('/functions/check_update.php')
-          .then(response => response.json())
-          .then(data => {
-            document.getElementById('message').innerText = data.message;
-            document.getElementById('debug-log').innerText = data.logs;
-            if (data.updateAvailable) {
-              const downloadButton = document.createElement('button');
-              downloadButton.innerText = 'Baixar e instalar';
-              downloadButton.addEventListener('click', () => {
-                fetch('/functions/download_update.php')
-                  .then(response => response.json())
-                  .then(result => {
-                    document.getElementById('message').innerText = result.message;
-                    document.getElementById('debug-log').innerText = result.logs;
-                  });
-              });
-              document.getElementById('message').appendChild(downloadButton);
-            }
-          }).catch(error => {
-            document.getElementById('message').innerText = 'Erro ao verificar atualizações: ' + error;
-            document.getElementById('debug-log').innerText = error;
-          });
+      document.getElementById('check-update-button').addEventListener('click', async () => {
+        try {
+          const checkResponse = await fetch('/functions/check_update.php');
+          const checkData = await checkResponse.json();
+
+          console.log(checkData.logs); // Mostrar logs no console
+
+          if (checkData.updateAvailable) {
+            document.getElementById('message').innerText = `Nova atualização encontrada: ${checkData.releaseData.tag_name}\nVersão: ${checkData.version}\nCompilação: ${checkData.compilation}\nUpdate: ${checkData.update}`;
+
+            const downloadButton = document.createElement('button');
+            downloadButton.innerText = 'Baixar e instalar';
+            downloadButton.addEventListener('click', async () => {
+              try {
+                const downloadResponse = await fetch('/functions/download_update.php', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ releaseData: checkData.releaseData })
+                });
+                const downloadData = await downloadResponse.json();
+
+                console.log(downloadData.logs); // Mostrar logs no console
+
+                document.getElementById('message').innerText = downloadData.message;
+              } catch (error) {
+                console.error('Erro ao baixar e instalar atualização:', error);
+              }
+            });
+            document.getElementById('message').appendChild(downloadButton);
+          } else {
+            document.getElementById('message').innerText = checkData.message;
+          }
+        } catch (error) {
+          console.error('Erro ao verificar atualizações:', error);
+          document.getElementById('message').innerText = 'Erro ao verificar atualizações: ' + error.message;
+        }
       });
     </script>
   </body>

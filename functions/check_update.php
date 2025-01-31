@@ -18,7 +18,7 @@ function getCurrentVersion($root, $debug, &$logs)
   if (file_exists($jsonFilePath)) {
     $jsonData = file_get_contents($jsonFilePath);
     if ($debug)
-      $logs .= "Current version data: " . $jsonData . "\n";
+      $logs .= "Current version data: $jsonData\n";
     return json_decode($jsonData, true);
   } else {
     if ($debug)
@@ -30,7 +30,7 @@ function getCurrentVersion($root, $debug, &$logs)
 function checkForUpdates($currentVersion, $debug, &$logs)
 {
   $githubApiUrl = 'https://api.github.com/repos/StopMotionEGames/Windows-10-Simulation-PHP/releases';
-  $token = getenv('GITHUB_TOKEN');  // Obter o token da variável de ambiente
+  $token = getenv("GITHUB_TOKEN");
 
   if (!$token) {
     $logs .= "Token do GitHub não encontrado nas variáveis de ambiente.\n";
@@ -114,7 +114,8 @@ if ($currentVersion) {
     echo json_encode([
       'message' => 'Nova atualização encontrada: ' . $releaseInfo['releaseData']['tag_name'] . "\nVersão: " . $releaseInfo['version'] . "\nCompilação: " . $releaseInfo['compilation'] . "\nUpdate: " . $releaseInfo['update'],
       'updateAvailable' => true,
-      'logs' => $releaseInfo['logs']
+      'logs' => $releaseInfo['logs'],
+      'releaseData' => $releaseInfo['releaseData'] // Adicionar releaseData na resposta JSON
     ]);
   } else {
     echo json_encode([
