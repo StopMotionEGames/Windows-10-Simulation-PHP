@@ -53,8 +53,8 @@ function checkForUpdates($currentVersion, $debug, &$logs)
 
   if ($debug) {
     $logs .= "cURL Info:\n" . print_r($curlInfo, true) . "\n";
-    $logs .= "cURL Error:\n" . $curlError . "\n";
-    $logs .= "API Response:\n" . $response . "\n";
+    $logs .= "cURL Error:\n$curlError\n";
+    $logs .= "API Response:\n$response\n";
   }
 
   if (!$response) {

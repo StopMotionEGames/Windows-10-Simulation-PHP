@@ -18,7 +18,7 @@ function getCurrentVersion($root, $debug, &$logs)
   if (file_exists($jsonFilePath)) {
     $jsonData = file_get_contents($jsonFilePath);
     if ($debug)
-      $logs .= "Current version data: " . $jsonData . "\n";
+      $logs .= "Current version data: $jsonData\n";
     return json_decode($jsonData, true);
   } else {
     if ($debug)
@@ -48,8 +48,8 @@ function checkForUpdates($currentVersion, $debug, &$logs)
 
   if ($debug) {
     $logs .= "cURL Info:\n" . print_r($curlInfo, true) . "\n";
-    $logs .= "cURL Error:\n" . $curlError . "\n";
-    $logs .= "API Response:\n" . $response . "\n";
+    $logs .= "cURL Error:\n$curlError\n";
+    $logs .= "API Response:\n$response\n";
   }
 
   if (!$response) {
@@ -147,10 +147,10 @@ function recursiveMove($src, $dst)
   @mkdir($dst);
   while (false !== ($file = readdir($dir))) {
     if (($file != '.') && ($file != '..')) {
-      if (is_dir($src . '/' . $file)) {
-        recursiveMove($src . '/' . $file, $dst . '/' . $file);
+      if (is_dir("$src/$file")) {
+        recursiveMove("$src/$file", "$dst/$file");
       } else {
-        rename($src . '/' . $file, $dst . '/' . $file);
+        rename("$src/$file", "$dst/$file");
       }
     }
   }
