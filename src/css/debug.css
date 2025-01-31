@@ -1,28 +1,30 @@
 div.debug {
   position: fixed;
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
-  z-index: 20;
+  z-index: -1;
 
   pre {
     padding: 16px;
     background-color: azure;
     color: black;
-    top: 50%;
-    left: 50%;
-    width: fit-content;
-    height: fit-content;
+    max-width: 75%;
+    max-height: 75%;
     display: flex;
     justify-content: center;
-    &:hover{
+    z-index: 200;
+    overflow: scroll;
+
+    &:hover {
       background-color: #f0f0f06e;
     }
   }
 }
-div.php-error-message{
+
+div.php-error-message {
   position: fixed;
   display: flex;
   width: 100vw;
@@ -31,19 +33,4 @@ div.php-error-message{
   align-items: center;
   z-index: 21;
   background-color: #ffffffe0;
-
-  /* pre {
-    padding: 16px;
-    background-color: #ff0000;
-    color: white;
-    top: 50%;
-    left: 50%;
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    &:hover{
-      background-color: #ff0000;
-    }
-  } */
 }
