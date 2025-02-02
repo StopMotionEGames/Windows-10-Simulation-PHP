@@ -9,13 +9,13 @@ error_reporting(E_ALL);
 // Definir cabeçalho para JSON
 header('Content-Type: application/json');
 
-$debug = true;
 $logs = '';
 
-function downloadAndUpdate($releaseData, $root, $debug, &$logs)
+function downloadAndUpdate($releaseData, $root, &$logs)
 {
   $downloadDir = "$root/Windows/SoftwareDistribution/Download";
   $tempDir = "$root/Windows/SoftwareDistribution/Temp";
+  $downloadDir = "$root/Windows/SoftwareDistribution/Download";
   $logs = '';
 
   $downloadUrl = '';
@@ -31,9 +31,7 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
     $downloadUrl = $releaseData['zipball_url'];
   }
 
-  if ($debug) {
-    $logs .= "URL de download: $downloadUrl\n";
-  }
+  $logs .= "URL de download: $downloadUrl\n";
 
   if ($downloadUrl) {
     $downloadPath = "$downloadDir/update.zip";
@@ -61,10 +59,8 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    if ($debug) {
-      $logs .= "HTTP Status Code: $httpCode\n";
-      $logs .= "cURL Error: $curlError\n";
-    }
+    $logs .= "HTTP Status Code: $httpCode\n";
+    $logs .= "cURL Error: $curlError\n";
 
     if ($httpCode == 200 && $data) {
       // Garantir que o diretório de download existe
@@ -94,10 +90,10 @@ function downloadAndUpdate($releaseData, $root, $debug, &$logs)
         // Atualizar winver.json
         $winverPath = "$root/Windows/System32/winver.json";
         $winverData = [
-          'branch' => $releaseData['target_commitish'],
-          'version' => $releaseData['body'] ? explode("\r\n", $releaseData['body'])[0] : '',
-          'compilation' => $releaseData['body'] ? explode("\r\n", $releaseData['body'])[1] : '',
-          'update' => $releaseData['body'] ? explode("\r\n", $releaseData['body'])[2] : '',
+          'branch' => isset($releaseData['body']) ? explode(PHP_EOL, $releaseData['body'])[0] : '',
+          'version' => isset($releaseData['body']) ? explode(PHP_EOL, $releaseData['body'])[1] : '',
+          'compilation' => isset($releaseData['body']) ? explode(PHP_EOL, $releaseData['body'])[2] : '',
+          'update' => isset($releaseData['body']) ? explode(PHP_EOL, $releaseData['body'])[3] : '',
           'tag' => $releaseData['tag_name']
         ];
         file_put_contents($winverPath, json_encode($winverData, JSON_PRETTY_PRINT));

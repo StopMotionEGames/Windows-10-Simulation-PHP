@@ -1,4 +1,8 @@
 {
   "php.version": "8.4",
-  "vscode-edge-devtools.headless": false
+  "vscode-edge-devtools.headless": false,
+  "fiveServer.highlight": true,
+  "fiveServer.injectBody": true,
+  "fiveServer.navigate": false,
+  "fiveServer.host": "sites.local"
 }

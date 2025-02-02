@@ -1,7 +1,7 @@
 {
     "branch": "Canary",
     "version": "22H2",
-    "compilation": "26120.3000",
-    "update": "KB0000000",
-    "tag": "v0.0.0"
+    "compilation": "26120.3052",
+    "update": "KB0000052",
+    "tag": "v0.0.2"
 }
