@@ -1,5 +1,5 @@
 <?php
-require_once 'FilesManager.php';
+require_once 'get-root.php';
 
 // Desativar a exibição de erros de PHP na saída HTTP
 ini_set('display_errors', 0);
