@@ -1,7 +1,7 @@
 <?php
 session_start();
-require 'db.php';
-
+require_once 'db.php';
+require_once 'functions/get_user_settings.php';
 function authenticate($username, $password, $pin)
 {
   global $pdo;
@@ -16,6 +16,7 @@ function authenticate($username, $password, $pin)
         if ($pin === $user['pin']) {
           $_SESSION['username'] = $username;
           $_SESSION['use_pin'] = $user['use_pin'];
+          $_SESSION['id'] = $user["id"];
           return true;
         } else {
           echo "<div class='error-message'>PIN incorreto.</div>";
@@ -28,6 +29,7 @@ function authenticate($username, $password, $pin)
         if ($password === $user['pass']) {
           $_SESSION['username'] = $username;
           $_SESSION['use_pin'] = $user['use_pin'];
+          $_SESSION['id'] = $user["id"];
           return true;
         } else {
           echo "<div class='error-message'>Senha incorreta.</div>";
@@ -73,22 +75,24 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="preload" fetchpriority="high" href="src/fonts/sb.woff2" as="font" type="font/woff2"
       crossorigin="anonymous">
     <link rel="preload" as="image" href="src/images/w10-bootLogo.svg" type="image/svg+xml">
-    <link rel="preload" as="image" href="src/images/w11-bootLogo.svg" type="image/svg+xml">
     <link rel="preload" as="style" href="src/css/boot-animation.css" type="text/css" fetchpriority="high"
       onload="this.rel='stylesheet'">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login e Desktop</title>
-    <link rel="stylesheet" type="text/css" href="src/css/formElements.css">
+    <link rel="stylesheet" type="text/css" href="src/css/uwp-forms.css">
+    <link rel="stylesheet" type="text/css" href="/src/css/uwp-loaders.css">
     <link rel="stylesheet" type="text/css" href="src/css/icons.css">
     <link rel="stylesheet" type="text/css" href="src/css/lockScreen.css">
     <link rel="stylesheet" type="text/css" href="src/css/window.css">
-    <link rel="stylesheet" type="text/css" href="src/css/desktop.css">
+    <link rel="stylesheet" type="text/css" href="src/css/explorer.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <?php include_once "$root/src/filters/grainy.svg"; ?>
     <script>
       function fontLoaded() {
         return document.fonts.load('1em sb');
       }
-      let s, e, c, t, h, b = true, i;
+      let s, e, c, t, h, b = true, i, l = true;
       // Função para detectar o sistema operacional
       function detectOS() {
         navigator.userAgentData.getHighEntropyValues(["platformVersion"])
@@ -176,23 +180,24 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
       });
 
       function u() {
-        if (c > e) {
-          if (b) h.textContent = " ";
-          setTimeout(() => {
-            c = s;
-            u();
-          }, t);
+        if (l) {
+          if (c > e) {
+            if (b) h.textContent = " ";
+            setTimeout(() => {
+              c = s;
+              u();
+            }, t);
+          } else {
+            h.textContent = String.fromCharCode(c);
+            c++;
+            setTimeout(u, 25);
+          }
         } else {
-          h.textContent = String.fromCharCode(c);
-          c++;
-          setTimeout(u, 25);
+          return;
         }
       }
 
       document.addEventListener('DOMContentLoaded', () => {
-        i = document.getElementById("boot-logo");
-        if (b) i.src = "src/images/w10-bootLogo.svg";
-        else i.src = "src/images/w11-bootLogo.svg";
         fontLoaded().then(() => {
           start();
         });
@@ -201,7 +206,10 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
       window.addEventListener('load', () => {
         let i = document.getElementById("loadBody");
         i.classList.add("fade-out");
-        setTimeout(() => { document.body.removeChild(i); }, 600);
+        setTimeout(() => {
+          document.body.removeChild(i);
+          l = false;
+        }, 600);
       });
     </script>
   </head>
@@ -210,7 +218,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div id="loadBody">
       <div class="aTF"></div>
       <div class="anm">
-        <div class="logo"><img id="boot-logo"></div>
+        <div class="logo"><img src="src/images/w10-bootLogo.svg" id="boot-logo"></div>
         <div class="loadFlex">
           <div class="load">
             <div id="loadAnm"> </div>
@@ -230,7 +238,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         document.addEventListener('DOMContentLoaded', (event) => {
           document.body.style.backgroundImage = 'url(/src/images/BGs/img0.jpg)';
           const script = document.createElement('script');
-          script.src = '/src/js/taskbar-startMenu.js';
+          script.src = '/src/js/explorer.js';
           document.body.appendChild(script);
         });
       </script>
@@ -280,12 +288,12 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .then(html => {
           document.body.innerHTML = html;
           if (html.includes('desktop')) {
-            document.body.style.backgroundImage = 'url(/src/images/BGs/img100.jpg)';
+            document.body.style.backgroundImage = 'url(/src/images/BGs/img0.jpg)';
             const script = document.createElement('script');
-            script.src = '/src/js/taskbar-startMenu.js';
+            script.src = '/src/js/explorer.js';
             document.body.appendChild(script);
           } else {
-            document.body.style.backgroundImage = 'url(/src/images/img0.jpg)';
+            document.body.style.backgroundImage = 'url(/src/images/img100.jpg)';
           }
         });
     });
@@ -345,3 +353,5 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     });
   });
 </script>
+<script src="/src/js/jq.min.js"></script>
+<script src="/src/js/window.js"></script>
