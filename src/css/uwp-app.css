@@ -1,4 +1,25 @@
-@import url(./themeColor.css);
+@import url(themeColor.css);
+@import url(uwp-filters.css);
+@import url(uwp-forms.css);
+@import url(uwp-loaders.css);
+
+@media(prefers-color-scheme: light) {
+  :root {
+    --color1: #0000000f;
+    --color2: #ffffff00;
+    --color3: #000000a2;
+    --color4: #00000015;
+  }
+}
+
+@media(prefers-color-scheme: dark) {
+  :root {
+    --color1: #ffffff33;
+    --color2: #ffffff00;
+    --color3: #ffffffb3;
+    --color4: #ffffff1a;
+  }
+}
 
 /* Navigation */
 /* Header */
@@ -96,7 +117,7 @@
   position: fixed;
   min-width: 320px;
   max-width: 320px;
-  background-color: var(--sbbgc);
+  background-color: #1f1f1f80;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -201,11 +222,15 @@ Windows blue bar should appears */
 .main-items {
   position: relative;
   padding-top: 100px;
-  background-color: var(--bdbgc);
-  margin-inline: 25px;
+  padding-inline: 25px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 65px;
+  min-height: calc(100vh - 100px);
+  background-color: var(--bdbgc);
+
+  &.full {
+    min-height: calc(100vh - 270px);
+  }
 }
 
 .main-items p {
@@ -289,8 +314,10 @@ scalable {
 /* Interactable UI Elements */
 
 .button.start {
-  width: 310px;
+  user-select: none;
   height: fit-content;
+  max-height: 85px;
+  max-width: 250px;
   display: flex;
   padding: 12px 12px;
   background: none;
@@ -375,7 +402,7 @@ scalable {
   }
 
   .main-items {
-    margin-left: 6px;
+    width: calc(100vw - 50px);
     padding-top: 70px;
   }
 
@@ -430,8 +457,9 @@ scalable {
       margin-block: 2px;
       font-size: 13px;
     }
-    #link{
-      margin-block: 1pxpx;
+
+    #link {
+      margin-block: 1px;
       font-size: 13px;
     }
   }
@@ -456,7 +484,7 @@ a {
 body {
   margin: 0;
   font-family: Segoe UI;
-  background-color: var(--bdbgc);
+  /* background-color: var(--bdbgc); */
 }
 
 .buttons {
@@ -486,4 +514,12 @@ ul {
 .no-bg {
   background: none !important;
   border-image: none !important;
+}
+
+.no-transition {
+  transition: none;
+}
+
+.hide {
+  display: none;
 }

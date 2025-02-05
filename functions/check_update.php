@@ -1,5 +1,5 @@
 <?php
-require "FilesManager.php";
+require_once "get-root.php";
 
 // Mostrar erros de PHP
 ini_set('display_errors', 1);

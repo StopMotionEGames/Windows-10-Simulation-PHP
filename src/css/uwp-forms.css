@@ -16,8 +16,6 @@
 .bef-button {
   background-color: var(--btnbgc);
   border-color: var(--btnbgc);
-  /* border-style: solid;
-  border-width: 2px; */
   margin-block: 8px;
 
   width: fit-content;
@@ -34,6 +32,8 @@
     color: var(--txtc);
     padding: 4.5px 20px;
     background-color: transparent;
+    border-color: transparent;
+    border-style: solid;
   }
 }
 

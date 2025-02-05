@@ -2,10 +2,10 @@
 
 require '../../vendor/autoload.php';
 
-use React\EventLoop\Factory;
+use React\EventLoop\Loop;
 use React\Promise\Promise;
 
-$loop = Factory::create();
+$loop = Loop::get();
 $folder = './SystemSettings';
 $subfolders = glob("$folder/*", GLOB_ONLYDIR);
 $buttons = '';
@@ -44,20 +44,54 @@ $loop->run();
 <html lang="pt-br">
 
   <head>
+    <link fetchpriority="high" rel="preload" href="/src/icons/?icon=ms-settings&dynamic=true" as="image">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beta Elements</title>
+    <title>Configurações</title>
     <script defer src="/src/js/loader.js"></script>
     <script defer src="/src/js/ourFunctions.js"></script>
     <script defer src="/src/js/winhover.js"></script>
     <script defer src="/src/js/sidebarIndicator.js"></script>
     <link rel="stylesheet" href="/src/css/uwp-app.css">
-    <link rel="stylesheet" href="/src/css/loadAnim.css">
+    <link rel="stylesheet" href="/src/css/uwp-loaders.css">
+    <link rel="stylesheet" href="/src/css/uwp-forms.css">
     <link rel="stylesheet" href="/src/css/icons.css">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <style>
+      #loader {
+        position: fixed;
+        z-index: 100;
+        width: 100%;
+        height: 100%;
+        background-color: #0078d7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 0;
+        top 0;
+
+        transition: all .5s;
+
+        img {
+          width: 192px;
+        }
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let a = document.getElementById("loader");
+        a.style.opacity = 0
+        setTimeout(() => {
+          a.remove();
+        }, 500)
+      })
+    </script>
   </head>
 
   <body>
+    <div id="loader">
+      <img src="/src/icons/?icon=ms-settings" alt="">
+    </div>
     <div class="content">
       <div class="main-content full">
         <div class="header full home-page">
@@ -87,7 +121,9 @@ $loop->run();
         </div>
         <div class="main-items full">
           <div class="topTools">
-            <input type="search" placeholder="Digite para pesquisar" />
+            <div class="input-container">
+              <input type="search" placeholder="Digite para pesquisar" />
+            </div>
           </div>
           <div class="buttons win-grid">
             <?php echo $buttons ?>

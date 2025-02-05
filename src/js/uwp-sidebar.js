@@ -1,8 +1,8 @@
 var htmlID = document.querySelector("html");
 
-var homeB = document.querySelector(".homeb")
-var general = document.querySelector(".general");
-var info = document.querySelector(".info");
+var b0 = document.querySelector(".b0")
+var b1 = document.querySelector(".b1");
+var b2 = document.querySelector(".b2");
 var b3 = document.querySelector(".b3");
 var b4 = document.querySelector(".b4");
 var b5 = document.querySelector(".b5");
@@ -12,17 +12,17 @@ var b8 = document.querySelector(".b8");
 
 function setSbIndicator() {
   switch (htmlID.id) {
-    case "homeH":
-      homeB.id = "tr"
-      homeB.parentElement.onclick = null;
+    case "h0":
+      b0.id = "tr"
+      b0.parentElement.onclick = null;
       break;
-    case "general":
-      general.id = "tr";
-      general.parentElement.onclick = null;
+    case "h1":
+      b1.id = "tr";
+      b1.parentElement.onclick = null;
       break;
-    case "infoH":
-      info.id = "tr";
-      info.parentElement.onclick = null;
+    case "h2":
+      b2.id = "tr";
+      b2.parentElement.onclick = null;
       break;
     case "h3":
       b3.id = "tr";

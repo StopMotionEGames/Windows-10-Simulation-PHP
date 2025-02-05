@@ -36,6 +36,13 @@
   background-color: none !important;
 }
 
+.taskbar-notif-icon::before {
+  text-align: center;
+  font-size: 22px;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .vdlUpdate::before {
   margin-right: 8px;
   font-size: 54px;
@@ -64,6 +71,94 @@
 
 #Attach::before {
   content: "\E723";
+}
+
+#Battery0::before {
+  content: "\E850";
+}
+
+#Battery1::before {
+  content: "\E851";
+}
+
+#Battery2::before {
+  content: "\E852";
+}
+
+#Battery3::before {
+  content: "\E853";
+}
+
+#Battery4::before {
+  content: "\E854";
+}
+
+#Battery5::before {
+  content: "\E855";
+}
+
+#Battery6::before {
+  content: "\E856";
+}
+
+#Battery7::before {
+  content: "\E857";
+}
+
+#Battery8::before {
+  content: "\E858";
+}
+
+#Battery9::before {
+  content: "\E859";
+}
+
+#Battery10::before {
+  content: "\E83F";
+}
+
+#BatteryCharging0::before {
+  content: "\E85A";
+}
+
+#BatteryCharging1::before {
+  content: "\E85B";
+}
+
+#BatteryCharging2::before {
+  content: "\E85C";
+}
+
+#BatteryCharging3::before {
+  content: "\E85D";
+}
+
+#BatteryCharging4::before {
+  content: "\E85E";
+}
+
+#BatteryCharging5::before {
+  content: "\E85F";
+}
+
+#BatteryCharging6::before {
+  content: "\E860";
+}
+
+#BatteryCharging7::before {
+  content: "\E861";
+}
+
+#BatteryCharging8::before {
+  content: "\E862";
+}
+
+#BatteryCharging9::before {
+  content: "\E83E";
+}
+
+#BatteryCharging10::before {
+  content: "\EA93";
 }
 
 #Bluetooth::before {
@@ -118,8 +213,20 @@
   content: "\E77B";
 }
 
+#DefenderApp::before {
+  content: "\E83D";
+}
+
+#DefenderBadge12::before {
+  content: "\F0FB";
+}
+
 #Delete::before {
   content: "\E74D";
+}
+
+#DeliveryOptimization::before {
+  content: "\F785";
 }
 
 #Diagnostic::before {
