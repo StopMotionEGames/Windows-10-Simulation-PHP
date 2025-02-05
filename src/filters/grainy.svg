@@ -1,5 +1,5 @@
-<svg xmlns='http://www.w3.org/2000/svg'>
+<svg style="display: none">
   <filter id='grainy'>
-    <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='10' />
+    <feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='1' />
   </filter>
 </svg>
